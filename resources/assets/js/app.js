@@ -1,29 +1,19 @@
-require('./bootstrap');
-import Vue from 'vue';
-import VueRouter from 'vue-router';
-import Vuex from 'vuex';
-import {routes} from './routes';
-import StoreData from './store';
-import MainApp from './components/MainApp.vue';
-import {initialize} from './helpers/general';
+import Vue from 'vue'
+import Vuetify from 'vuetify'
+import store from '~/store'
+import router from '~/router'
+import { i18n } from '~/plugins'
+import App from '~/components/App'
+import '~/components'
 
-Vue.use(VueRouter);
-Vue.use(Vuex);
+Vue.use(Vuetify)
 
-const store = new Vuex.Store(StoreData);
+Vue.config.productionTip = false
 
-const router = new VueRouter({
-    routes,
-    mode: 'history'
-});
-
-initialize(store, router);
-
-const app = new Vue({
-    el: '#app',
-    router,
-    store,
-    components: {
-        MainApp
-    }
-});
+new Vue({
+  el: '#app',
+  i18n,
+  store,
+  router,
+  ...App
+})

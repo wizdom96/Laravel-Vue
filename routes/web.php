@@ -11,6 +11,10 @@
 |
 */
 
-Route::get('{any}', function () {
-    return view('welcome');
-})->where('any', '.*');
+Route::get('{path}', function () {
+    return view('index');
+})->where('path', '(.*)');
+
+Route::get('password/reset/{token}', function () {
+    return view('index');
+})->name('password.reset');

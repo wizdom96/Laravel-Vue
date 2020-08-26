@@ -13,19 +13,20 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::group(['prefix' => 'auth'], function ($router) {
+Route::group(['middleware' => 'auth:api'], function () {
+    Route::post('logout', 'Auth\LoginController@logout');
 
-    Route::post('login', 'AuthController@login');
-    Route::post('logout', 'AuthController@logout');
-    Route::post('refresh', 'AuthController@refresh');
-    Route::post('me', 'AuthController@me');
+    Route::get('/user', function (Request $request) {
+        return $request->user();
+    });
 
+    Route::patch('settings/profile', 'Settings\UpdateProfile');
+    Route::patch('settings/password', 'Settings\UpdatePassword');
 });
 
-Route::group(['middleware' => 'jwt.auth'], function ($router) {
-
-    Route::get('customers', 'CustomersController@all');
-    Route::get('customers/{id}', 'CustomersController@get');
-    Route::post('customers/new', 'CustomersController@new');
-
+Route::group(['middleware' => 'guest:api'], function () {
+    Route::post('login', 'Auth\LoginController@login');
+    Route::post('register', 'Auth\RegisterController@register');
+    Route::post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail');
+    Route::post('password/reset', 'Auth\ResetPasswordController@reset');
 });
