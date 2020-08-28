@@ -8,7 +8,6 @@
       :hint="hint"
       :label="label"
       :name="name"
-      :prepend-icon="prepend"
       v-model="_value"
     ></v-text-field>
     <has-error :form="form" :field="name"></has-error>
@@ -17,60 +16,62 @@
 
 <script>
 export default {
-  name: 'text-input',
+  name: "text-input",
 
   props: {
     name: {
       type: String,
-      required: true
+      required: true,
     },
     label: {
       type: String,
-      required: true
+      required: true,
     },
     hint: {
-      type: String
+      type: String,
     },
     vErrors: {
       type: Object,
-      required: true
+      required: true,
     },
     form: {
       type: Object,
-      required: true
+      required: true,
     },
     prepend: {
       type: String,
-      default: ''
+      default: "",
     },
     counter: {
       type: [Boolean, Number, String],
-      default: false
+      default: false,
     },
     value: {
       type: String,
-      default: ''
+      default: "",
     },
     browserAutocomplete: String,
   },
 
   computed: {
-    errorMessages () {
-      return this.vErrors.collect(this.name)
+    errorMessages() {
+      return this.vErrors.collect(this.name);
     },
-    errorClass () {
-      return this.form.errors.has(this.name) && 'input-group--error error--text'
+    errorClass() {
+      return (
+        this.form.errors.has(this.name) && "input-group--error error--text"
+      );
     },
     _value: {
-      get () {
-        return this.value
+      get() {
+        return this.value;
       },
-      set (value) {
-        value = value || ''
-        this.$emit('update:value', value.trim())
-        this.$emit('input', value.trim())
-      }
-    }
-  }
-}
+      set(value) {
+        value = value || "";
+        this.$emit("update:value", value.trim());
+        this.$emit("input", value.trim());
+      },
+    },
+  },
+};
 </script>

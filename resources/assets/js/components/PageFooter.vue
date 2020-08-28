@@ -1,15 +1,15 @@
 <template>
   <v-footer :fixed="fixed" app>
-    <span>&copy; 2017</span>
+    <span>&copy; 2020</span>
   </v-footer>
 </template>
 
 <script>
 export default {
-  data () {
+  data() {
     return {
-      fixed: false
-    }
-  }
-}
+      fixed: false,
+    };
+  },
+};
 </script>
